@@ -16,7 +16,7 @@ build:
     - pyright=pyright.cli:entrypoint
     - pyright-python=pyright.cli:entrypoint
     - pyright-langserver=pyright.langserver:entrypoint
-    - pyright-python-langserver=pyright.langserver:entrypoint
+#     - pyright-python-langserver=pyright.langserver:entrypoint
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [py<36]
 
