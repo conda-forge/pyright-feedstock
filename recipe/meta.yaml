@@ -15,7 +15,10 @@ build:
   entry_points:
     - pyright=pyright.cli:entrypoint
     - pyright-python=pyright.cli:entrypoint
+    - pyright-langserver=pyright.langserver:entrypoint
+    - pyright-python-langserver=pyright.langserver:entrypoint
   script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [py<36]
 
 requirements:
   build:
@@ -27,7 +30,7 @@ requirements:
   run:
     - nodeenv >=1.6.0
     - python
-    - typing_extensions >=3.7
+    - typing_extensions >=3.7  # [py<38]
 
 test:
   imports:
@@ -36,6 +39,8 @@ test:
     - pip check
     - pyright --help
     - pyright-python --help
+    - pyright-langserver --help
+    - pyright-python-langserver --help
   requires:
     - pip
 
