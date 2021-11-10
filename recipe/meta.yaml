@@ -16,7 +16,7 @@ build:
     - pyright=pyright.cli:entrypoint
     - pyright-python=pyright.cli:entrypoint
     - pyright-langserver=pyright.langserver:entrypoint
-#     - pyright-python-langserver=pyright.langserver:entrypoint
+    - pyright-python-langserver=pyright.langserver:entrypoint
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [py<36]
 
@@ -39,8 +39,8 @@ test:
     - pip check
     - pyright --help
     - pyright-python --help
-    - pyright-langserver --help
-    - pyright-python-langserver --help
+    - pyright-langserver --node-ipc
+    - pyright-python-langserver --node-ipc
   requires:
     - pip
 
