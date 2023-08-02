@@ -1,5 +1,5 @@
 {% set name = "pyright" %}
-{% set version = "1.1.318" %}
+{% set version = "1.1.320" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyright-{{ version }}.tar.gz
-  sha256: 69dcf9c32d5be27d531750de627e76a7cadc741d333b547c09044278b508db7b
+  sha256: 94223e3b82d0b4c99c5125bab4d628ec749ce0b5b2ae0471fd4921dd4eff460d
 
 build:
   number: 0
