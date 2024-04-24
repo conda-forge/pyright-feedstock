@@ -1,5 +1,5 @@
 {% set name = "pyright" %}
-{% set version = "1.1.359" %}
+{% set version = "1.1.360" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyright-{{ version }}.tar.gz
-  sha256: f0eab50f3dafce8a7302caeafd6a733f39901a2bf5170bb23d77fd607c8a8dbc
+  sha256: 784ddcda9745e9f5610483d7b963e9aa8d4f50d7755a9dffb28ccbeb27adce32
 
 build:
   number: 0
@@ -25,7 +25,7 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
-    - sysroot_linux-64 2.17  # [linux64]
+    - {{ stdlib("c") }}
   host:
     - pip
     - python
