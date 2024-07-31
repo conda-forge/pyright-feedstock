@@ -29,6 +29,7 @@ requirements:
   host:
     - pip
     - python
+    - setuptools
   run:
     - nodeenv >=1.6.0
     - nodejs
