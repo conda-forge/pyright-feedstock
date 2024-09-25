@@ -17,7 +17,12 @@ build:
     - pyright-python=pyright.cli:entrypoint
     - pyright-langserver=pyright.langserver:entrypoint
     - pyright-python-langserver=pyright.langserver:entrypoint
-  script: {{ PYTHON }} -m pip install . -vv
+  script:
+    - {{ PYTHON }} -m pip install . -vv
+    # invoking pyright during build is necessary to trigger the install of the pyright npm package.
+    # without it, pyright will try to install the npm package during runtime,
+    # which will fail on systems without internet connection.
+    - pyright-langserver --node-ipc  # trigger npm install
   skip: true  # [py<37]
 
 requirements:
@@ -26,6 +31,8 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
+    - nodeenv >=1.6.0
+    - nodejs
   host:
     - pip
     - python
@@ -58,3 +65,4 @@ about:
 extra:
   recipe-maintainers:
     - thewchan
+    - moritzwilksch
