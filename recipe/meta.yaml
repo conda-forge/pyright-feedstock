@@ -37,6 +37,7 @@ requirements:
     - pip
     - python
     - setuptools
+    - typing-extensions >=4.1
   run:
     - nodeenv >=1.6.0
     - nodejs
