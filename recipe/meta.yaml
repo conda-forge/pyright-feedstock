@@ -34,7 +34,7 @@ requirements:
     - nodeenv >=1.6.0
     - nodejs
     - python
-    - typing_extensions >=3.7  # [py<38]
+    - typing-extensions >=4.1
 
 test:
   imports:
