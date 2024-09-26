@@ -10,36 +10,23 @@ package:
 
 source:
   url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
-  sha256: 4b84dd4439b0cbc662dff6aaf012cc0860f1c788932ac4c2a4b5d6c1280a5e20
+  sha256: 0c953837aa9f1e1d8d46772ee7ebae845104db657e9216834dbdde567a11f177
 
 build:
   number: 0
-  skip:
-    - py<37
-  script: ${{ PYTHON }} -m pip install . -vv
-  python:
-    entry_points:
-      - pyright=pyright.cli:entrypoint
-      - pyright-python=pyright.cli:entrypoint
-      - pyright-langserver=pyright.langserver:entrypoint
-      - pyright-python-langserver=pyright.langserver:entrypoint
 
 requirements:
-  build:
-    - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - ${{ compiler('c') }}
   host:
-    - pip
-    - python
-    - setuptools
+  - python
+  - pip
+  - nodeenv >=1.6.0
+  - typing-extensions >=4.1
+  - pnpm
+  - pnpm-licenses
   run:
-    - nodeenv >=1.6.0
-    - nodejs
-    - python
-    - typing-extensions >=4.1
+  - python
+  - nodeenv >=1.6.0
+  - typing-extensions >=4.1
 
 tests:
   - python:
