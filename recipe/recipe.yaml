@@ -1,0 +1,70 @@
+schema_version: 1
+
+context:
+  name: pyright
+  version: 1.1.382
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
+  sha256: 4b84dd4439b0cbc662dff6aaf012cc0860f1c788932ac4c2a4b5d6c1280a5e20
+
+build:
+  number: 0
+  skip:
+    - py<37
+  script: ${{ PYTHON }} -m pip install . -vv
+  python:
+    entry_points:
+      - pyright=pyright.cli:entrypoint
+      - pyright-python=pyright.cli:entrypoint
+      - pyright-langserver=pyright.langserver:entrypoint
+      - pyright-python-langserver=pyright.langserver:entrypoint
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - nodeenv >=1.6.0
+    - nodejs
+    - python
+    - typing-extensions >=4.1
+
+tests:
+  - python:
+      imports:
+        - pyright
+      pip_check: true
+  - requirements:
+      run:
+        - pip
+    script:
+      - pyright --help
+      - pyright-python --help
+      - pyright-langserver --node-ipc
+      - pyright-python-langserver --node-ipc
+
+about:
+  summary: Command line wrapper for pyright, a static type checker
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/RobertCraigie/pyright-python
+  repository: https://github.com/RobertCraigie/pyright-python
+
+extra:
+  recipe-maintainers:
+    - thewchan
+    - moritzwilksch
+
