@@ -28,6 +28,7 @@ requirements:
   - pnpm-licenses
   run:
   - python
+  - nodejs
   - nodeenv >=1.6.0
   - typing-extensions >=4.1
 
