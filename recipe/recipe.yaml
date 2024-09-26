@@ -3,7 +3,7 @@ context:
 
 package:
   name: pyright
-  version: ${{version}}
+  version: ${{ version }}
 
 source:
 - url: https://files.pythonhosted.org/packages/5a/7e/bc877dfbde1f486cc0da40c4ad3f609300d9364f83107587b99fb20e6b91/pyright-1.1.382.post0.tar.gz
@@ -14,14 +14,14 @@ build:
 
 requirements:
   host:
-  - python >=3.7
+  - python
   - pip
   - nodeenv >=1.6.0
   - typing-extensions >=4.1
   - pnpm
   - pnpm-licenses
   run:
-  - python >=3.7
+  - python
   - nodeenv >=1.6.0
   - typing-extensions >=4.1
 
@@ -38,4 +38,7 @@ about:
     - LICENSE
     - third-party-licenses.txt
 
-
+extra:
+  recipe-maintainers:
+    - thewchan
+    - moritzwilksch
