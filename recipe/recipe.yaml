@@ -1,0 +1,41 @@
+context:
+  version: "1.1.382"
+
+package:
+  name: pyright
+  version: ${{version}}
+
+source:
+- url: https://files.pythonhosted.org/packages/5a/7e/bc877dfbde1f486cc0da40c4ad3f609300d9364f83107587b99fb20e6b91/pyright-1.1.382.post0.tar.gz
+  sha256: 4b84dd4439b0cbc662dff6aaf012cc0860f1c788932ac4c2a4b5d6c1280a5e20
+
+build:
+  number: 0
+
+requirements:
+  host:
+  - python >=3.7
+  - pip
+  - nodeenv >=1.6.0
+  - typing-extensions >=4.1
+  - pnpm
+  - pnpm-licenses
+  run:
+  - python >=3.7
+  - nodeenv >=1.6.0
+  - typing-extensions >=4.1
+
+tests:
+  - script:
+    - pyright --version
+    - pyright-langserver --node-ipc
+
+about:
+  homepage: https://github.com/RobertCraigie/pyright-python
+  summary: Command line wrapper for pyright
+  license: MIT
+  license_file:
+    - LICENSE
+    - third-party-licenses.txt
+
+
