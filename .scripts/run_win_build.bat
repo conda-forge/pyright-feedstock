@@ -53,7 +53,7 @@ call :end_group
 
 :: Build the recipe
 echo Building recipe
-conda.exe run rattler-build build --recipe "recipe" -m .ci_support\%CONFIG%.yaml %EXTRA_CB_OPTIONS%
+conda.exe run rattler-build build --recipe "recipe" -m .ci_support\%CONFIG%.yaml %EXTRA_CB_OPTIONS% --target-platform %HOST_PLATFORM%
 if !errorlevel! neq 0 exit /b !errorlevel!
 
 call :start_group "Inspecting artifacts"

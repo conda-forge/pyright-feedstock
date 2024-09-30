@@ -3,11 +3,13 @@ About pyright-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/pyright-feedstock/blob/main/LICENSE.txt)
 
-
+Home: https://github.com/RobertCraigie/pyright-python
 
 Package license: MIT
 
 Summary: Command line wrapper for pyright, a static type checker
+
+Development: https://github.com/RobertCraigie/pyright-python
 
 Current build status
 ====================
