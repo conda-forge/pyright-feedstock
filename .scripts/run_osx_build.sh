@@ -26,11 +26,13 @@ export CONDA_SOLVER="libmamba"
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 mamba install --update-specs --quiet --yes --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
+    pip mamba rattler-build conda-forge-ci-setup=4 "conda-build>=24.1" pixi
 mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
+    pip mamba rattler-build conda-forge-ci-setup=4 "conda-build>=24.1"
 
-
+echo "pixi info"
+pixi info
+echo "end of pixi info"
 
 echo -e "\n\nSetting up the condarc and mangling the compiler."
 setup_conda_rc ./ ./recipe ./.ci_support/${CONFIG}.yaml
@@ -58,33 +60,26 @@ source run_conda_forge_build_setup
 
 ( endgroup "Configuring conda" ) 2> /dev/null
 
-echo -e "\n\nMaking the build clobber file"
-make_build_number ./ ./recipe ./.ci_support/${CONFIG}.yaml
-
 if [[ -f LICENSE.txt ]]; then
   cp LICENSE.txt "recipe/recipe-scripts-license.txt"
 fi
 
 if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
-    if [[ "x${BUILD_OUTPUT_ID:-}" != "x" ]]; then
-        EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --output-id ${BUILD_OUTPUT_ID}"
-    fi
-    conda debug ./recipe -m ./.ci_support/${CONFIG}.yaml \
-        ${EXTRA_CB_OPTIONS:-} \
-        --clobber-file ./.ci_support/clobber_${CONFIG}.yaml
-
-    # Drop into an interactive shell
-    /bin/bash
+    echo "rattler-build does not currently support debug mode"
 else
 
     if [[ "${HOST_PLATFORM}" != "${BUILD_PLATFORM}" ]]; then
         EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"
     fi
 
-    conda-build ./recipe -m ./.ci_support/${CONFIG}.yaml \
-        --suppress-variables ${EXTRA_CB_OPTIONS:-} \
-        --clobber-file ./.ci_support/clobber_${CONFIG}.yaml \
-        --extra-meta flow_run_id="$flow_run_id" remote_url="$remote_url" sha="$sha"
+    export SYSTEM_VERSION_COMPAT=0
+    rattler-build build --recipe ./recipe \
+        -m ./.ci_support/${CONFIG}.yaml \
+        --output-dir ${MINIFORGE_HOME}/conda-bld ${EXTRA_CB_OPTIONS:-} \
+        --target-platform "${HOST_PLATFORM}" \
+        --extra-meta flow_run_id="$flow_run_id" \
+        --extra-meta remote_url="$remote_url" \
+        --extra-meta sha="$sha"
 
     ( startgroup "Inspecting artifacts" ) 2> /dev/null
 

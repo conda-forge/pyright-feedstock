@@ -14,3 +14,4 @@ github:
 os_version:
   linux_64: cos7
 test: native
+conda_build_tool: rattler-build
