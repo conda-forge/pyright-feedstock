@@ -1,5 +1,5 @@
 {% set name = "pyright" %}
-{% set version = "1.1.383" %}
+{% set version = "1.1.384" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyright-{{ version }}.tar.gz
-  sha256: 1df7f12407f3710c9c6df938d98ec53f70053e6c6bbf71ce7bcb038d42f10070
+  sha256: 25e54d61f55cbb45f1195ff89c488832d7a45d59f3e132f178fdf9ef6cafc706
 
 build:
   number: 0
@@ -34,7 +34,7 @@ requirements:
     - nodeenv >=1.6.0
     - nodejs
     - python
-    - typing-extensions >=4.1
+    - typing_extensions >=4.1
 
 test:
   imports:
