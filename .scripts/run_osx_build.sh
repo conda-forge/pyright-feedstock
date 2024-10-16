@@ -26,13 +26,11 @@ export CONDA_SOLVER="libmamba"
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 mamba install --update-specs --quiet --yes --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build conda-forge-ci-setup=4 "conda-build>=24.1" pixi
+    pip mamba rattler-build conda-forge-ci-setup=4 "conda-build>=24.1"
 mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
     pip mamba rattler-build conda-forge-ci-setup=4 "conda-build>=24.1"
 
-echo "pixi info"
-pixi info
-echo "end of pixi info"
+
 
 echo -e "\n\nSetting up the condarc and mangling the compiler."
 setup_conda_rc ./ ./recipe ./.ci_support/${CONFIG}.yaml
@@ -72,7 +70,6 @@ else
         EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"
     fi
 
-    export SYSTEM_VERSION_COMPAT=0
     rattler-build build --recipe ./recipe \
         -m ./.ci_support/${CONFIG}.yaml \
         --output-dir ${MINIFORGE_HOME}/conda-bld ${EXTRA_CB_OPTIONS:-} \
@@ -83,8 +80,8 @@ else
 
     ( startgroup "Inspecting artifacts" ) 2> /dev/null
 
-    # inspect_artifacts was only added in conda-forge-ci-setup 4.6.0
-    command -v inspect_artifacts >/dev/null 2>&1 && inspect_artifacts || echo "inspect_artifacts needs conda-forge-ci-setup >=4.6.0"
+    # inspect_artifacts was only added in conda-forge-ci-setup 4.9.4
+    command -v inspect_artifacts >/dev/null 2>&1 && inspect_artifacts --recipe-dir ./recipe -m ./.ci_support/${CONFIG}.yaml || echo "inspect_artifacts needs conda-forge-ci-setup >=4.9.4"
 
     ( endgroup "Inspecting artifacts" ) 2> /dev/null
     ( startgroup "Validating outputs" ) 2> /dev/null
