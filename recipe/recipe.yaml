@@ -1,0 +1,59 @@
+schema_version: 1
+
+context:
+  name: pyright
+  version: 1.1.382
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
+  sha256: 0c953837aa9f1e1d8d46772ee7ebae845104db657e9216834dbdde567a11f177
+
+build:
+  number: 0
+
+requirements:
+  build:
+  - ${{ compiler('c') }}
+  - ${{ stdlib('c') }}
+  host:
+  - python
+  - pip
+  - nodeenv >=1.6.0
+  - typing-extensions >=4.1
+  - pnpm
+  - pnpm-licenses
+  run:
+  - python
+  - nodejs
+  - nodeenv >=1.6.0
+  - typing-extensions >=4.1
+
+tests:
+  - python:
+      imports:
+        - pyright
+      pip_check: true
+  - requirements:
+      run:
+        - pip
+    script:
+      - pyright --help
+      - pyright-python --help
+      - pyright-langserver --node-ipc
+      - pyright-python-langserver --node-ipc
+
+about:
+  summary: Command line wrapper for pyright, a static type checker
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/RobertCraigie/pyright-python
+  repository: https://github.com/RobertCraigie/pyright-python
+
+extra:
+  recipe-maintainers:
+    - thewchan
+    - moritzwilksch
