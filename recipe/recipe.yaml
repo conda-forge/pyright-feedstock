@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pyright
-  version: 1.1.382
+  version: 1.1.386
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
-  sha256: 0c953837aa9f1e1d8d46772ee7ebae845104db657e9216834dbdde567a11f177
+  sha256: 8e9975e34948ba5f8e07792a9c9d2bdceb2c6c0b61742b068d2229ca2bc4a9d9
 
 build:
   number: 0
