@@ -19,6 +19,8 @@ requirements:
   build:
   - ${{ compiler('c') }}
   - ${{ stdlib('c') }}
+  - pnpm
+  - pnpm-licenses
   host:
   - python
   - pip
