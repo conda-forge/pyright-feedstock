@@ -7,6 +7,7 @@ REM Set environment variables
 set PYRIGHT_PYTHON_CACHE_DIR=%PREFIX%\lib
 echo "shamefully-hoist=true" > %HOME%\.npmrc
 echo "node-linker=hoisted" >> %HOME%\.npmrc
+echo "symlink=false" >> %HOME%\.npmrc
 
 pnpm config list
 
