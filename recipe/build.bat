@@ -16,7 +16,7 @@ REM Navigate to Pyright's cache directory
 pushd %PYRIGHT_PYTHON_CACHE_DIR%\pyright-python\%PKG_VERSION%\node_modules\pyright\
 
 REM Install dependencies and generate third-party licenses file
-pnpm install
+pnpm install --shamefully-hoist
 pnpm licenses list --json | pnpm-licenses generate-disclaimer --prod --json-input --output-file=%SRC_DIR%\third-party-licenses.txt
 
 popd
