@@ -6,11 +6,11 @@ REM Install Python dependencies
 REM Set environment variables
 set PYRIGHT_PYTHON_CACHE_DIR=%PREFIX%\lib
 
-pnpm config set symlink false
-pnpm config set nodeLinker hoisted
-pnpm config set shamefullyHoist true
+pnpm config set symlink false || goto :error
+pnpm config set nodeLinker hoisted || goto :error
+pnpm config set shamefullyHoist true || goto :error
 
-pnpm config list
+pnpm config list || goto :error
 
 pyright-langserver --node-ipc || goto :error
 
