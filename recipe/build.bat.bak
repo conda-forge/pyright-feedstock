@@ -6,13 +6,7 @@ REM Install Python dependencies
 REM Set environment variables
 set PYRIGHT_PYTHON_CACHE_DIR=%PREFIX%\lib
 
-pnpm config set symlink false || goto :error
-pnpm config set nodeLinker hoisted || goto :error
-pnpm config set shamefullyHoist true || goto :error
-
-pnpm config list || goto :error
-
-pyright-langserver --node-ipc || goto :error
+npm install pyright@1.1.386 --prefix=%PREFIX%\lib
 
 REM Create activation script directory and set the Pyright cache location
 mkdir %PREFIX%\etc\conda\activate.d || goto :error

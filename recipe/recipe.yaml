@@ -2,56 +2,72 @@ context:
   name: pyright
   version: 1.1.386
 
-package:
+recipe:
   name: ${{ name|lower }}
   version: ${{ version }}
+
+build:
+  number: 10
 
 source:
   url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
   sha256: 8e9975e34948ba5f8e07792a9c9d2bdceb2c6c0b61742b068d2229ca2bc4a9d9
 
-build:
-  number: 0
-  skip: 
-    - ppc64le
+outputs:
+  - package:
+      name: ${{ name|lower }}-node
+    build:
+      skip: [ppc64le]
+      script: build_node.bat
+    requirements:
+      build:
+        - pnpm
+        - pnpm-licenses
+      host:
+        - nodejs
+    about:
+      license: MIT
+      license_file: third-party-licenses.txt
 
-requirements:
-  build:
-  - ${{ compiler('c') }}
-  - ${{ stdlib('c') }}
-  - pnpm
-  - pnpm-licenses
-  - if: build_platform != target_platform
-    then:
+  - package:
+      name: ${{ name|lower }}
+    build:
+      script: build_python.bat
+      python:
+        entry_points:
+          - pyright=pyright.cli:entrypoint
+          - pyright-python=pyright.cli:entrypoint
+          - pyright-langserver=pyright.langserver:entrypoint
+          - pyright-python-langserver=pyright.langserver:entrypoint
+
+    requirements:
+      host:
       - python
-      - cross-python_${{ target_platform }}
-  host:
-  - python
-  - setuptools
-  - pip
-  - nodeenv >=1.6.0
-  - typing-extensions >=4.1
-  - pnpm
-  - pnpm-licenses
-  run:
-  - python
-  - nodejs
-  - nodeenv >=1.6.0
-  - typing-extensions >=4.1
-
-tests:
-  - python:
-      imports:
-        - pyright
-      pip_check: true
-  - requirements:
+      - setuptools
+      - pip
       run:
-        - pip
-    script:
-      - pyright --help
-      - pyright-python --help
-      - pyright-langserver --node-ipc
-      - pyright-python-langserver --node-ipc
+      - python
+      - nodejs
+      - nodeenv >=1.6.0
+      - typing-extensions >=4.1
+      - ${{ pin_subpackage(name ~ '-node', exact=true) }}
+
+    tests:
+      - python:
+          imports:
+            - pyright
+          pip_check: true
+      - requirements:
+          run:
+            - pip
+        script:
+          - pyright.exe --help
+          - pyright-python.exe --help
+          - pyright-langserver.exe --node-ipc
+          # - pyright-python-langserver --node-ipc
+    about:
+      license: MIT
+      license_file: LICENSE
 
 about:
   summary: Command line wrapper for pyright, a static type checker
