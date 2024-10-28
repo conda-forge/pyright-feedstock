@@ -23,6 +23,10 @@ requirements:
   - ${{ stdlib('c') }}
   - pnpm
   - pnpm-licenses
+  - if: build_platform != target_platform
+    then:
+      - python
+      - cross-python_${{ target_platform }}
   host:
   - python
   - pip
