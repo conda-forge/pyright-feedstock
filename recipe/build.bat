@@ -6,6 +6,7 @@ REM Install Python dependencies
 REM Set environment variables
 set PYRIGHT_PYTHON_CACHE_DIR=%PREFIX%\lib
 echo "shamefully-hoist=true" > %HOME%\.npmrc
+echo "node-linker=hoisted" >> %HOME%\.npmrc
 
 pnpm config list
 
