@@ -6,6 +6,7 @@ REM Install Python dependencies
 
 REM Set environment variables
 set PYRIGHT_PYTHON_CACHE_DIR=%PREFIX%\lib
+echo "shamefully-hoist=true" > %HOME%\.npmrc
 pyright-langserver --node-ipc
 
 REM Create activation script directory and set the Pyright cache location
