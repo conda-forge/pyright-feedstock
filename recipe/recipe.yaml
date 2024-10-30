@@ -18,7 +18,12 @@ outputs:
       name: ${{ name|lower }}-node
     build:
       skip: [ppc64le]
-      script: build_node.bat
+      script: build_node
+      # script:
+      #   - if: win
+      #     then: build_node.bat
+      #   - if: unix
+      #     then: build_node.sh
     requirements:
       build:
         - pnpm
@@ -32,7 +37,11 @@ outputs:
   - package:
       name: ${{ name|lower }}
     build:
-      script: build_python.bat
+      script: build_python
+        # - if: win
+        #   then: build_python.bat
+        # - if: unix
+        #   then: build_python.sh
       python:
         entry_points:
           - pyright=pyright.cli:entrypoint
