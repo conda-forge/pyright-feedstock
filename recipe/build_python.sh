@@ -2,11 +2,10 @@ set -euxo pipefail
 
 $PYTHON -m pip install .
 
-export PYRIGHT_PYTHON_CACHE_DIR="$PREFIX/lib"
-pyright-langserver --node-ipc
+export PYRIGHT_PYTHON_CACHE_DIR="$PREFIX/lib/pyright"
 
 mkdir -p $PREFIX/etc/conda/activate.d
-echo 'export PYRIGHT_PYTHON_CACHE_DIR="$PREFIX/lib"' > $PREFIX/etc/conda/activate.d/10-set-npm-pyright-location.sh
+echo 'export PYRIGHT_PYTHON_CACHE_DIR="$PREFIX/lib/pyright"' > $PREFIX/etc/conda/activate.d/10-set-npm-pyright-location.sh
 
 # pushd $PYRIGHT_PYTHON_CACHE_DIR/pyright-python/$PKG_VERSION/node_modules/pyright/
 

@@ -18,12 +18,8 @@ outputs:
       name: ${{ name|lower }}-node
     build:
       skip: [ppc64le]
-      script: build_node
-      # script:
-      #   - if: win
-      #     then: build_node.bat
-      #   - if: unix
-      #     then: build_node.sh
+      script:
+        file: build_node${{ '.bat' if win else '.sh' }}
     requirements:
       build:
         - pnpm
@@ -37,11 +33,9 @@ outputs:
   - package:
       name: ${{ name|lower }}
     build:
-      script: build_python
-        # - if: win
-        #   then: build_python.bat
-        # - if: unix
-        #   then: build_python.sh
+      noarch: python
+      script:
+        file: build_python${{ '.bat' if win else '.sh' }}
       python:
         entry_points:
           - pyright=pyright.cli:entrypoint
@@ -70,9 +64,9 @@ outputs:
           run:
             - pip
         script:
-          - pyright.exe --help
-          - pyright-python.exe --help
-          - pyright-langserver.exe --node-ipc
+          - pyright --help
+          - pyright-python --help
+          - pyright-langserver --node-ipc
           # - pyright-python-langserver --node-ipc
     about:
       license: MIT
