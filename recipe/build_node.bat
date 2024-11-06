@@ -1,9 +1,9 @@
 @echo on
 
-mkdir %PREFIX%\lib
-pnpm install pyright@%PKG_VERSION% --prefix=%PREFIX%\lib || goto :error
+mkdir %PREFIX%\lib\pyright
+pnpm install pyright@%PKG_VERSION% --prefix=%PREFIX%\lib\pyright || goto :error
 
-pushd %PREFIX%\lib && pnpm-licenses generate-disclaimer --prod --json-input --output-file=%SRC_DIR%\third-party-licenses.txt || goto :error
+pushd %PREFIX%\lib\pyright && pnpm-licenses generate-disclaimer --prod --json-input --output-file=%SRC_DIR%\third-party-licenses.txt || goto :error
 
 popd
 
