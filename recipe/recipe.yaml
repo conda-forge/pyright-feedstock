@@ -24,8 +24,6 @@ outputs:
       build:
         - pnpm
         - pnpm-licenses
-      host:
-        - nodejs
     about:
       license: MIT
       license_file: third-party-licenses.txt
@@ -53,7 +51,7 @@ outputs:
       - nodejs
       - nodeenv >=1.6.0
       - typing-extensions >=4.1
-      - ${{ pin_subpackage(name ~ '-node', exact=true) }}
+      - ${{ pin_subpackage(name ~ '-node') }}
 
     tests:
       - python:
@@ -67,7 +65,6 @@ outputs:
           - pyright --help
           - pyright-python --help
           - pyright-langserver --node-ipc
-          # - pyright-python-langserver --node-ipc
     about:
       license: MIT
       license_file: LICENSE
