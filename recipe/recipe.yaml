@@ -1,6 +1,6 @@
 context:
   name: pyright
-  version: 1.1.386
+  version: 1.1.388
 
 recipe:
   name: ${{ name|lower }}
@@ -32,7 +32,6 @@ outputs:
   - package:
       name: ${{ name|lower }}
     build:
-      # noarch: python
       script:
         file: build_python${{ '.bat' if win else '.sh' }}
       python:
