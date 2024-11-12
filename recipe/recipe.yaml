@@ -32,7 +32,7 @@ outputs:
   - package:
       name: ${{ name|lower }}
     build:
-      noarch: python
+      # noarch: python
       script:
         file: build_python${{ '.bat' if win else '.sh' }}
       python:
@@ -43,6 +43,11 @@ outputs:
           - pyright-python-langserver=pyright.langserver:entrypoint
 
     requirements:
+      build:
+      - if: build_platform != target_platform
+        then: python
+      - if: build_platform != target_platform
+        then: cross-python_${{ target_platform }}
       host:
       - python
       - setuptools
@@ -52,7 +57,7 @@ outputs:
       - nodejs
       - nodeenv >=1.6.0
       - typing-extensions >=4.1
-      - ${{ pin_subpackage(name ~ '-node') }}
+      - ${{ pin_subpackage(name ~ '-node', upper_bound='x.x.x') }}
 
     tests:
       - python:
