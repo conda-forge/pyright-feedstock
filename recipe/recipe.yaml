@@ -6,12 +6,13 @@ recipe:
   name: ${{ name|lower }}
   version: ${{ version }}
 
-build:
-  number: 10
-
 source:
-  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
   sha256: 8e9975e34948ba5f8e07792a9c9d2bdceb2c6c0b61742b068d2229ca2bc4a9d9
+
+build:
+  number: 1
+
 
 outputs:
   - package:
