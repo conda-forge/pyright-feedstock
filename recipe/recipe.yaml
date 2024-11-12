@@ -32,6 +32,7 @@ outputs:
   - package:
       name: ${{ name|lower }}
     build:
+      skip: [ppc64le]
       script:
         file: build_python${{ '.bat' if win else '.sh' }}
       python:
