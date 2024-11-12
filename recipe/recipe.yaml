@@ -8,7 +8,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
-  sha256: 8e9975e34948ba5f8e07792a9c9d2bdceb2c6c0b61742b068d2229ca2bc4a9d9
+  sha256: 0166d19b716b77fd2d9055de29f71d844874dbc6b9d3472ccd22df91db3dfa34
 
 build:
   number: 1
