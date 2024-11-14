@@ -1,0 +1,88 @@
+context:
+  name: pyright
+  version: 1.1.389
+
+recipe:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
+  sha256: 716bf8cc174ab8b4dcf6828c3298cac05c5ed775dda9910106a5dcfe4c7fe220
+
+build:
+  number: 1
+
+
+outputs:
+  - package:
+      name: ${{ name|lower }}-node
+    build:
+      skip: [ppc64le]
+      script:
+        file: build_node${{ '.bat' if win else '.sh' }}
+    requirements:
+      build:
+        - pnpm
+        - pnpm-licenses
+    about:
+      license: MIT
+      license_file: third-party-licenses.txt
+
+  - package:
+      name: ${{ name|lower }}
+    build:
+      skip: [ppc64le]
+      script:
+        file: build_python${{ '.bat' if win else '.sh' }}
+      python:
+        entry_points:
+          - pyright=pyright.cli:entrypoint
+          - pyright-python=pyright.cli:entrypoint
+          - pyright-langserver=pyright.langserver:entrypoint
+          - pyright-python-langserver=pyright.langserver:entrypoint
+
+    requirements:
+      build:
+      - if: build_platform != target_platform
+        then: python
+      - if: build_platform != target_platform
+        then: cross-python_${{ target_platform }}
+      host:
+      - python
+      - setuptools
+      - pip
+      run:
+      - python
+      - nodejs
+      - nodeenv >=1.6.0
+      - typing-extensions >=4.1
+      - ${{ pin_subpackage(name ~ '-node', exact=true) }}
+
+    tests:
+      - python:
+          imports:
+            - pyright
+          pip_check: true
+      - requirements:
+          run:
+            - pip
+        script:
+          - pyright --help
+          - pyright-python --help
+          - pyright-langserver --node-ipc
+    about:
+      license: MIT
+      license_file: LICENSE
+
+about:
+  summary: Command line wrapper for pyright, a static type checker
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/RobertCraigie/pyright-python
+  repository: https://github.com/RobertCraigie/pyright-python
+
+extra:
+  recipe-maintainers:
+    - thewchan
+    - moritzwilksch
