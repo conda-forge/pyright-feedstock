@@ -57,7 +57,7 @@ outputs:
       - nodejs
       - nodeenv >=1.6.0
       - typing-extensions >=4.1
-      - ${{ pin_subpackage(name ~ '-node', upper_bound='x.x.x') }}
+      - ${{ pin_subpackage(name ~ '-node', exact=true) }}
 
     tests:
       - python:
