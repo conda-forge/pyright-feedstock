@@ -11,7 +11,7 @@ source:
   sha256: 3ab69b9f41c67fb5bbb4d7a36243256f0d549ed3608678d381d5f51863921104
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - pyright=pyright.cli:entrypoint
     - pyright-python=pyright.cli:entrypoint
