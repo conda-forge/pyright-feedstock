@@ -13,7 +13,6 @@ source:
 build:
   number: 1
 
-
 outputs:
   - package:
       name: ${{ name|lower }}-node
@@ -28,6 +27,12 @@ outputs:
     about:
       license: MIT
       license_file: third-party-licenses.txt
+
+    tests:
+      - script:
+          - pyright --help
+          - pyright-python --help
+          - pyright-langserver --node-ipc
 
   - package:
       name: ${{ name|lower }}
@@ -44,20 +49,20 @@ outputs:
 
     requirements:
       build:
-      - if: build_platform != target_platform
-        then: python
-      - if: build_platform != target_platform
-        then: cross-python_${{ target_platform }}
+        - if: build_platform != target_platform
+          then: python
+        - if: build_platform != target_platform
+          then: cross-python_${{ target_platform }}
       host:
-      - python
-      - setuptools
-      - pip
+        - python
+        - setuptools
+        - pip
       run:
-      - python
-      - nodejs
-      - nodeenv >=1.6.0
-      - typing-extensions >=4.1
-      - ${{ pin_subpackage(name ~ '-node', exact=true) }}
+        - python
+        - nodejs
+        - nodeenv >=1.6.0
+        - typing-extensions >=4.1
+        - ${{ pin_subpackage(name ~ '-node', exact=true) }}
 
     tests:
       - python:
