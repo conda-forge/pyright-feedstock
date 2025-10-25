@@ -1,3 +1,4 @@
+conda_build_tool: rattler-build
 bot:
   automerge: true
   inspection: hint-all
