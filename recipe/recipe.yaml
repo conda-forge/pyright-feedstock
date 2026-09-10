@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pyright
-  version: "1.1.411"
+  version: "1.1.413"
 
 package:
   name: ${{ name|lower }}
@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyright-${{ version }}.tar.gz
-  sha256: d885a0551f2e763b089a02702174e7f4ba77548cddabc972ab86d1f7f1b0f998
+  sha256: 40357dc6bd967e87a62877574ae79195d44e00d02917c8230e1d4b94ea88fccb
 
 build:
-  number: 1
+  number: 0
   script: ${{ PYTHON }} -m pip install . -vv
   python:
     entry_points:
